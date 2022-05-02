@@ -1,5 +1,5 @@
-Group Members:
+# Group Members:
 
--Jesse Bellido
--Beakal Degefa
--Linda Westphal
+- Jesse Bellido
+- Beakal Degefa
+- Linda Westphal
