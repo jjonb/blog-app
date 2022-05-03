@@ -25,8 +25,8 @@ const Admin = (props) => {
     UrlString = "10.0.2.2";
   }
 
-  const getBlogs = () => {
-    axios
+  const getBlogs = async () => {
+    return await axios
       .get(`http://${UrlString}:5050/blog`, {
         headers: { "x-auth-token": props.token },
       })
@@ -48,26 +48,28 @@ const Admin = (props) => {
     }
   }, [props.userData]);
 
-  const createPost = () => {
-    axios.post(
+  const createPost = async () => {
+    await axios.post(
       `http://${UrlString}:5050/blog/new`,
       { subject: subject, text: text },
       {
         headers: { "x-auth-token": props.token },
       }
     );
+
     getBlogs();
   };
-  const deleteBlog = (id) => {
-    axios.delete(
-      `http://${UrlString}:5050/blog/`,
-      { _id: id },
-      {
-        headers: { "x-auth-token": props.token },
-      }
-    );
+
+  const deleteBlog = async (id) => {
+    await axios.delete(`http://${UrlString}:5050/blog/`, {
+      data: {
+        _id: id,
+      },
+      headers: { "x-auth-token": props.token },
+    });
     getBlogs();
   };
+
   const blog = ({ item }) => (
     <View style={{ flex: 1, borderWidth: 1, borderColor: "black" }}>
       <Text style={{ fontSize: 18, color: "black" }}>{item.subject}</Text>
@@ -88,7 +90,7 @@ const Admin = (props) => {
           Edit
         </Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={deleteBlog(item._id)}>
+      <TouchableOpacity onPress={() => deleteBlog(item._id)}>
         <Text
           style={{
             color: "white",

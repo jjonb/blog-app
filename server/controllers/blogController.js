@@ -35,7 +35,7 @@ module.exports = {
 
   deleteBlogPost: async (req, res) => {
     try {
-      const deleteBlog = await Blog.deleteOne(req.body._id);
+      const deleteBlog = await Blog.deleteOne({ _id: req.body._id });
       res.json(deleteBlog);
     } catch (err) {
       res.json({ msg: err });
