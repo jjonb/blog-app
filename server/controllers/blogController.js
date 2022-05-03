@@ -32,4 +32,13 @@ module.exports = {
       res.json({ msg: err });
     }
   },
+
+  deleteBlogPost: async (req, res) => {
+    try {
+      const deleteBlog = await Blog.deleteOne(req.body._id);
+      res.json(deleteBlog);
+    } catch (err) {
+      res.json({ msg: err });
+    }
+  },
 };
