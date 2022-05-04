@@ -20,17 +20,10 @@ const Blog = (props) => {
           style={{ outline: 0, width: 150 }}
           autoFocus={true}
           onChangeText={setBlogText}
-          // onBlur={() => {
-          //   props.editBlog(props._id, blogText);
-          //   setToggleEdit(false);
-          // }}
           onSubmitEditing={() => {
             props.editBlog(props._id, blogText);
             setToggleEdit(false);
           }}
-          // onComplete={() => {
-          //   setToggleEdit(false);
-          // }}
           value={blogText}
         />
       ) : (
@@ -58,7 +51,7 @@ const Blog = (props) => {
               textAlign: "center",
             }}
           >
-            Complete
+            Save
           </Text>
         ) : (
           <Text

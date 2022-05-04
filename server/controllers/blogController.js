@@ -48,6 +48,8 @@ module.exports = {
         { text: req.body.text }
       );
       res.json(updateBlog);
-    } catch (err) {}
+    } catch (err) {
+      res.json({ msg: err });
+    }
   },
 };
