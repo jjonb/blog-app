@@ -52,4 +52,12 @@ module.exports = {
       res.json({ msg: err });
     }
   },
+  getAllBlogs: async (req, res) => {
+    try {
+      const allBlogs = await Blog.find({});
+      res.json(allBlogs);
+    } catch (err) {
+      res.json({ msg: err });
+    }
+  },
 };

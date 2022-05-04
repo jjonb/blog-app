@@ -3,6 +3,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./Screens/Login";
 import Admin from "./Screens/Admin";
+import Public from "./Screens/Public";
+
 import Register from "./Screens/Register";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
@@ -44,7 +46,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName="Admin">
         <Stack.Screen name="Login" options={{ headerShown: false }}>
           {(props) => (
             <Login
@@ -67,6 +69,17 @@ export default function App() {
               setToken={setToken}
               {...props}
             ></Admin>
+          )}
+        </Stack.Screen>
+        <Stack.Screen name="Public" options={{ headerShown: false }}>
+          {(props) => (
+            <Public
+              setUserData={setUserData}
+              userData={userData}
+              token={token}
+              setToken={setToken}
+              {...props}
+            ></Public>
           )}
         </Stack.Screen>
       </Stack.Navigator>

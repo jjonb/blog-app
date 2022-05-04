@@ -3,6 +3,7 @@ const {
   createBlogPost,
   deleteBlogPost,
   updateBlogPost,
+  getAllBlogs,
 } = require("../controllers/blogController");
 
 // auth is our custom middleware
@@ -19,5 +20,5 @@ router.get("/", auth, getUsersPosts);
 router.post("/new", auth, createBlogPost);
 router.delete("/", auth, deleteBlogPost);
 router.put("/update", auth, updateBlogPost);
-
+router.get("/all", getAllBlogs);
 module.exports = router;
