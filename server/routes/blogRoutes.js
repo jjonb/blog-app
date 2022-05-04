@@ -2,6 +2,7 @@ const {
   getUsersPosts,
   createBlogPost,
   deleteBlogPost,
+  updateBlogPost,
 } = require("../controllers/blogController");
 
 // auth is our custom middleware
@@ -17,4 +18,6 @@ router.get("/", auth, getUsersPosts);
 // accepts : req.body =>
 router.post("/new", auth, createBlogPost);
 router.delete("/", auth, deleteBlogPost);
+router.put("/update", auth, updateBlogPost);
+
 module.exports = router;
