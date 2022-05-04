@@ -41,14 +41,13 @@ module.exports = {
       res.json({ msg: err });
     }
   },
-
-  editBlogPost: async (req, res) => {
+  updateBlogPost: async (req, res) => {
     try {
-      const editBlog = await Blog.findOneAndUpdate(
+      const updateBlog = await Blog.findOneAndUpdate(
         { _id: req.body._id },
         { text: req.body.text }
       );
-      res.json(editBlog);
+      res.json(updateBlog);
     } catch (err) {
       res.json({ msg: err });
     }
