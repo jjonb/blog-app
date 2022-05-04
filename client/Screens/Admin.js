@@ -11,12 +11,14 @@ import {
 import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import Blog from "../Components/Blog.js";
 
 const Admin = (props) => {
   const [subject, setSubject] = useState("");
   const [text, setText] = useState("");
   const [data, setData] = useState([]);
   const [isLoading, setLoading] = useState(false);
+  //const [toggleEdit, setToggleEdit] = useState(false);
 
   let UrlString = "localhost";
 
@@ -70,44 +72,25 @@ const Admin = (props) => {
     getBlogs();
   };
 
-  const blog = ({ item }) => (
-    <View style={{ flex: 1, borderWidth: 1, borderColor: "black" }}>
-      <Text style={{ fontSize: 18, color: "black" }}>{item.subject}</Text>
-      <Text style={{ fontSize: 18, color: "black" }}>{item.text}</Text>
-      <TouchableOpacity>
-        <Text
-          style={{
-            color: "white",
-            fontSize: 20,
+  // const editBlog = (id) => {
+  //   console.log("editing");
+  // };
 
-            backgroundColor: "#12a6e6",
-            borderRadius: 10,
-            width: 70,
-            marginLeft: 50,
-            textAlign: "center",
-          }}
-        >
-          Edit
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => deleteBlog(item._id)}>
-        <Text
-          style={{
-            color: "white",
-            fontSize: 20,
+  const editBlog = async (id, newText) => {
+    await axios.put(
+      `http://${UrlString}:5050/blog/update`,
+      { _id: id, text: newText },
+      {
+        headers: { "x-auth-token": props.token },
+      }
+    );
+    console.log("update successful");
+    getBlogs();
+  };
 
-            backgroundColor: "#12a6e6",
-            borderRadius: 10,
-            width: 70,
-            marginLeft: 50,
-            textAlign: "center",
-          }}
-        >
-          Delete
-        </Text>
-      </TouchableOpacity>
-    </View>
-  );
+  // const blog = ({ item }) => {
+
+  // };
 
   return (
     <View style={styles.blogcontainer}>
@@ -119,7 +102,16 @@ const Admin = (props) => {
         <View>
           <FlatList
             data={data}
-            renderItem={blog}
+            renderItem={({ item }) => (
+              <Blog
+                item={item}
+                _id={item._id}
+                subject={item.subject}
+                text={item.text}
+                deleteBlog={deleteBlog}
+                editBlog={editBlog}
+              />
+            )}
             keyExtractor={(item) => item._id}
           />
         </View>

@@ -41,4 +41,13 @@ module.exports = {
       res.json({ msg: err });
     }
   },
+  updateBlogPost: async (req, res) => {
+    try {
+      const updateBlog = await Blog.findOneAndUpdate(
+        { _id: req.body._id },
+        { text: req.body.text }
+      );
+      res.json(updateBlog);
+    } catch (err) {}
+  },
 };
