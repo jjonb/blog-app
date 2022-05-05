@@ -29,9 +29,7 @@ const Admin = (props) => {
 
   const getBlogs = async () => {
     return await axios
-      .get(`http://${UrlString}:5050/blog`, {
-        headers: { "x-auth-token": props.token },
-      })
+      .get(`http://${UrlString}:5050/blog/all`)
       .then((response) => {
         setData(response.data);
       })
@@ -46,7 +44,7 @@ const Admin = (props) => {
 
   useEffect(() => {
     if (!props.userData.id) {
-      props.navigation.navigate("Login");
+      props.navigation.navigate("Public");
     }
   }, [props.userData]);
 
@@ -62,7 +60,10 @@ const Admin = (props) => {
     getBlogs();
   };
 
-  const deleteBlog = async (id) => {
+  const deleteBlog = async (id, authorId) => {
+    if (props.userData.id !== authorId) {
+      return;
+    }
     await axios.delete(`http://${UrlString}:5050/blog/`, {
       data: {
         _id: id,
@@ -76,7 +77,10 @@ const Admin = (props) => {
   //   console.log("editing");
   // };
 
-  const editBlog = async (id, newText) => {
+  const editBlog = async (id, newText, authorId) => {
+    if (props.userData.id !== authorId) {
+      return;
+    }
     await axios.put(
       `http://${UrlString}:5050/blog/update`,
       { _id: id, text: newText },
@@ -106,8 +110,11 @@ const Admin = (props) => {
               <Blog
                 item={item}
                 _id={item._id}
+                userId={props.userData.id}
                 subject={item.subject}
                 text={item.text}
+                author={item.author}
+                authorId={item.authorId}
                 deleteBlog={deleteBlog}
                 editBlog={editBlog}
               />

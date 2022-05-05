@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Register = (props) => {
   const [email, setEmail] = useState("");
@@ -28,6 +29,27 @@ const Register = (props) => {
       .then(function (response) {
         // redirect user to Login screen
         console.log(response);
+      })
+      .then(() => {
+        axios
+          .post(`http://${UrlString}:5050/user/login`, {
+            email: email,
+            password: password,
+          })
+          .then((response) => {
+            // on successful request store userData in state in App.js
+            props.setUserData(response.data.user);
+            // set item in storage "token" to value from token received from successful request
+            // sending AsyncStorage to next "then" method in Promise chain
+            props.setToken(response.data.token);
+            return AsyncStorage.setItem("token", response.data.token);
+          })
+          .then(() => {
+            props.navigation.navigate("Admin");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       })
       .catch(function (error) {
         console.log(error);

@@ -37,16 +37,16 @@ export default function App() {
       })
       .then((userResponse) => {
         // set userData state with response from successful request
+
         setUserData(userResponse.data);
       })
       .catch((err) => console.log(err));
   }, []);
-
+  console.log(token);
   // useEFfect to make a request to get all blogs, we would need to send the token
-
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Admin">
+      <Stack.Navigator initialRouteName="Public">
         <Stack.Screen name="Login" options={{ headerShown: false }}>
           {(props) => (
             <Login
@@ -58,7 +58,14 @@ export default function App() {
           )}
         </Stack.Screen>
         <Stack.Screen name="Register" options={{ headerShown: false }}>
-          {(props) => <Register {...props}></Register>}
+          {(props) => (
+            <Register
+              userData={userData}
+              setUserData={setUserData}
+              setToken={setToken}
+              {...props}
+            ></Register>
+          )}
         </Stack.Screen>
         <Stack.Screen name="Admin" options={{ headerShown: false }}>
           {(props) => (

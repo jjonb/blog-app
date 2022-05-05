@@ -15,3 +15,10 @@
 - Style (textboxes, screens) for admin/landing, register, login page.
 - CRUD functionality for our blogs (edit, update, delete blogs).
 - When I get to landing/admin page, be able to see all the blog posts (all crud functionality; edit/delete/create blog).
+
+## Third Steps
+
+- Add Profile/Settings page, Profile.js. Be able to see/change userName, password, and email.
+- Add profile pictures/ change profile pictures.
+- Bottom Tab Navigation.
+- Add "save changes" button on profile page.
