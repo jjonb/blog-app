@@ -18,5 +18,4 @@ router.post("/register", registerUser);
 // route: /user/login
 // accepts : req.body => email, password
 router.post("/login", login);
-
 module.exports = router;

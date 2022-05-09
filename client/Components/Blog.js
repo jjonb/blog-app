@@ -15,7 +15,7 @@ const Blog = (props) => {
           autoFocus={true}
           onChangeText={setBlogText}
           onSubmitEditing={() => {
-            props.editBlog(props._id, blogText);
+            props.editBlog(props._id, blogText, props.authorId);
             setToggleEdit(false);
           }}
           value={blogText}
@@ -26,8 +26,9 @@ const Blog = (props) => {
 
       <TouchableOpacity
         onPress={() => {
+          if (props.userId !== props.authorId) return;
           if (toggleEdit === true) {
-            props.editBlog(props._id, blogText);
+            props.editBlog(props._id, blogText, props.authorId);
           }
           setToggleEdit(!toggleEdit);
         }}
@@ -64,7 +65,9 @@ const Blog = (props) => {
           </Text>
         )}
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => props.deleteBlog(props._id)}>
+      <TouchableOpacity
+        onPress={() => props.deleteBlog(props._id, props.authorId)}
+      >
         <Text
           style={{
             color: "white",
@@ -80,6 +83,8 @@ const Blog = (props) => {
           Delete
         </Text>
       </TouchableOpacity>
+
+      <Text>Username: {props.author}</Text>
     </View>
   );
 };

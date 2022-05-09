@@ -24,6 +24,7 @@ module.exports = {
         subject,
         text,
         authorId: req.user.id,
+        author: req.user.userName,
       }).save();
 
       // on success send new blog back as json
