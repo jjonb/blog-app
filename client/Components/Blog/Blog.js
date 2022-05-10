@@ -24,27 +24,30 @@ const Blog = (props) => {
       ) : (
         <Text style={styles.blogText}>{blogText}</Text>
       )}
-
-      <TouchableOpacity
-        onPress={() => {
-          if (props.userId !== props.authorId) return;
-          if (toggleEdit === true) {
-            props.editBlog(props._id, blogText, props.authorId);
-          }
-          setToggleEdit(!toggleEdit);
-        }}
-      >
-        {toggleEdit ? (
-          <Text style={styles.button}>Save</Text>
-        ) : (
-          <Text style={styles.button}>Edit</Text>
-        )}
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => props.deleteBlog(props._id, props.authorId)}
-      >
-        <Text style={styles.button}>Delete</Text>
-      </TouchableOpacity>
+      {props.userId === props.authorId ? (
+        <View>
+          <TouchableOpacity
+            onPress={() => {
+              //if (props.userId !== props.authorId) return;
+              if (toggleEdit === true) {
+                props.editBlog(props._id, blogText, props.authorId);
+              }
+              setToggleEdit(!toggleEdit);
+            }}
+          >
+            {toggleEdit ? (
+              <Text style={styles.button}>Save</Text>
+            ) : (
+              <Text style={styles.button}>Edit</Text>
+            )}
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => props.deleteBlog(props._id, props.authorId)}
+          >
+            <Text style={styles.button}>Delete</Text>
+          </TouchableOpacity>
+        </View>
+      ) : null}
 
       <Text>Username: {props.author}</Text>
     </View>

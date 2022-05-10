@@ -23,11 +23,9 @@ const styles = StyleSheet.create({
     padding: 4,
     paddingLeft: 24,
     borderRadius: 10,
-    marginBottom: 20,
-    marginTop: 20,
+    margin: 20,
     backgroundColor: "white",
     fontSize: 18,
-    marginHorizontal: 20,
   },
   button: {
     color: "white",
