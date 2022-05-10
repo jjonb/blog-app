@@ -3,7 +3,6 @@ import {
   Text,
   Pressable,
   TextInput,
-  StyleSheet,
   TouchableOpacity,
   Platform,
   FlatList,
@@ -11,7 +10,8 @@ import {
 import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import Blog from "../Components/Blog.js";
+import Blog from "../../Components/Blog/Blog.js";
+import styles from "./styles.js";
 
 const Admin = (props) => {
   const [subject, setSubject] = useState("");
@@ -59,6 +59,8 @@ const Admin = (props) => {
     );
 
     getBlogs();
+    setSubject("");
+    setText("");
   };
 
   const deleteBlog = async (id, authorId) => {
@@ -98,7 +100,7 @@ const Admin = (props) => {
   // };
 
   return (
-    <View style={styles.blogcontainer}>
+    <View style={styles.blogContainer}>
       <Text>Hi im Admin</Text>
 
       {isLoading ? (
@@ -125,18 +127,7 @@ const Admin = (props) => {
         </View>
       )}
       <TextInput
-        style={{
-          borderColor: "white",
-          width: 360,
-          height: 50,
-          padding: 4,
-          paddingLeft: 24,
-          borderRadius: 10,
-          marginTop: 20,
-          backgroundColor: "white",
-          fontSize: 18,
-          marginHorizontal: 20,
-        }}
+        style={styles.subjectInput}
         placeholder="Subject"
         onChangeText={setSubject}
         value={subject}
@@ -154,71 +145,13 @@ const Admin = (props) => {
           props.setUserData({});
         }}
       >
-        <Text
-          style={{
-            color: "white",
-            fontSize: 20,
-            marginRight: 100,
-            marginTop: 100,
-            backgroundColor: "#12a6e6",
-            borderRadius: 10,
-            width: 80,
-            marginLeft: 300,
-            textAlign: "center",
-          }}
-        >
-          Log out
-        </Text>
+        <Text style={styles.logoutButton}>Log out</Text>
       </Pressable>
       <TouchableOpacity onPress={createPost}>
-        <Text
-          style={{
-            color: "white",
-            fontSize: 20,
-
-            backgroundColor: "#12a6e6",
-            borderRadius: 10,
-            width: 70,
-            marginLeft: 50,
-            textAlign: "center",
-          }}
-        >
-          Post
-        </Text>
+        <Text style={styles.button}>Post</Text>
       </TouchableOpacity>
     </View>
   );
 };
-const styles = StyleSheet.create({
-  blogcontainer: {},
-  logout: {
-    backgroundColor: "#ebf1fa",
-    fontSize: 18,
-    height: 400,
-    width: 400,
-    borderRadius: 20,
-
-    alignItems: "center",
-    shadowOffset: { width: -7, height: 8 },
-    shadowOpacity: 0.2,
-    justifyContent: "center",
-    marginLeft: "auto",
-    marginRight: "auto",
-    marginTop: 200,
-  },
-  textInput: {
-    borderColor: "white",
-    width: 360,
-    height: 200,
-    padding: 4,
-    paddingLeft: 24,
-    borderRadius: 10,
-    marginBottom: 20,
-    marginTop: 20,
-    backgroundColor: "white",
-    fontSize: 18,
-    marginHorizontal: 20,
-  },
-});
 
 export default Admin;

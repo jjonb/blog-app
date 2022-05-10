@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Login from "./Screens/Login";
-import Admin from "./Screens/Admin";
-import Public from "./Screens/Public";
+import Login from "./Screens/Login/Login";
+import Admin from "./Screens/Admin/Admin";
+import Public from "./Screens/Public/Public";
 
-import Register from "./Screens/Register";
+import Register from "./Screens/Register/Register";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 

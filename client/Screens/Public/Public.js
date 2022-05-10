@@ -1,16 +1,8 @@
-import {
-  View,
-  Text,
-  Pressable,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-  Platform,
-  FlatList,
-} from "react-native";
+import { View, Text, TouchableOpacity, Platform, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import styles from "./styles";
 //import Blog from "../Components/Blog.js";
 
 const Public = (props) => {
@@ -37,50 +29,27 @@ const Public = (props) => {
   }, []);
 
   return (
-    <View>
-      <Text>Public (all blogs)</Text>
+    <View style={styles.container}>
+      <Text style={styles.pageTitle}>Public (all blogs)</Text>
       <FlatList
         data={data}
         renderItem={({ item }) => {
           return (
             <View>
-              <Text style={{ fontWeight: "bold" }}>{item.subject}</Text>
-              <Text>{item.text}</Text>
-              <Text>Username: {item.author}</Text>
+              <Text style={styles.subjectText}>{item.subject}</Text>
+              <Text style={styles.blogText}>{item.text}</Text>
+              <Text style={styles.authorText}>Username: {item.author}</Text>
             </View>
           );
         }}
         keyExtractor={(item) => item._id}
       />
-      <View style={{ flexDirection: "row" }}>
+      <View style={styles.btnContainer}>
         <TouchableOpacity onPress={() => props.navigation.navigate("Login")}>
-          <Text
-            style={{
-              color: "white",
-              fontSize: 20,
-              marginRight: 100,
-              marginTop: 100,
-              backgroundColor: "#12a6e6",
-              borderRadius: 10,
-              width: 70,
-            }}
-          >
-            Login
-          </Text>
+          <Text style={styles.button}>Login</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => props.navigation.navigate("Register")}>
-          <Text
-            style={{
-              color: "white",
-              fontSize: 20,
-              marginTop: 100,
-              backgroundColor: "#12a6e6",
-              borderRadius: 10,
-              width: 80,
-            }}
-          >
-            Register
-          </Text>
+          <Text style={styles.registerButton}>Register</Text>
         </TouchableOpacity>
       </View>
     </View>

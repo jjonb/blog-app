@@ -8,6 +8,7 @@ import {
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import styles from "./styles";
 
 const Register = (props) => {
   const [email, setEmail] = useState("");
@@ -56,7 +57,7 @@ const Register = (props) => {
       });
   };
   return (
-    <View>
+    <View style={styles.container}>
       <Text>Register Page</Text>
       <TextInput
         style={{
