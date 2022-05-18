@@ -48,9 +48,6 @@ const Public = (props) => {
         <TouchableOpacity onPress={() => props.navigation.navigate("Login")}>
           <Text style={styles.button}>Login</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => props.navigation.navigate("Register")}>
-          <Text style={styles.registerButton}>Register</Text>
-        </TouchableOpacity>
       </View>
     </View>
   );
