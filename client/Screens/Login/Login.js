@@ -10,7 +10,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./styles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { FontAwesome5 } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 
+//<FontAwesome5 name="user-edit" size={24} color="black" />
+//<MaterialCommunityIcons name="email" size={24} color="black" />
+//<Entypo name="key" size={24} color="black" />
+//<Entypo name="lock" size={24} color="black" />
 const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,25 +26,11 @@ const Login = (props) => {
 
   const [pageSetting, setPageSetting] = useState("Login");
 
-  // useEffect(() => {
-  //   if (props.userData.id) props.navigation.navigate("Admin");
-  // }, [props.userData]);
-
   let UrlString = "localhost";
 
   if (Platform.OS == "android") {
     UrlString = "10.0.2.2";
   }
-
-  // useEffect(() => {
-  //   let isMounted = true; // note mutable flag
-  //   someAsyncOperation().then((data) => {
-  //     if (isMounted) setState(data); // add conditional check
-  //   });
-  //   return () => {
-  //     isMounted = false;
-  //   }; // cleanup toggles value, if unmounted
-  // }, []);
 
   const register = () => {
     // make request to api and pass email, password, userName
@@ -117,7 +110,6 @@ const Login = (props) => {
           resizeMode: "contain",
           top: 78,
           marginBottom: 125,
-          //marginHorizontal: 104,
         }}
         source={require("../../assets/logo.png")}
       />
@@ -136,32 +128,53 @@ const Login = (props) => {
       )}
       <View style={{ marginTop: 20 }}>
         {pageSetting === "Login" ? null : (
-          <TextInput
-            style={styles.textInput}
-            onChangeText={setUserName}
-            value={userName}
-            placeholder="Name"
-          />
+          <View style={{ flexDirection: "row", justifyContent: "center" }}>
+            <View style={{ top: 8, marginRight: 3 }}>
+              <FontAwesome5 name="user-edit" size={24} color="black" />
+            </View>
+            <TextInput
+              style={styles.textInput}
+              onChangeText={setUserName}
+              value={userName}
+              placeholder="Name"
+            />
+          </View>
         )}
-        <TextInput
-          style={styles.textInput}
-          onChangeText={setEmail}
-          value={email}
-          placeholder="Email"
-        />
-        <TextInput
-          style={styles.textInput}
-          onChangeText={setPassword}
-          value={password}
-          placeholder="Password"
-        />
-        {pageSetting === "Login" ? null : (
+        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+          <View style={{ top: 8, marginRight: 3 }}>
+            <MaterialCommunityIcons name="email" size={30} color="black" />
+          </View>
           <TextInput
             style={styles.textInput}
-            onChangeText={setConfirmPW}
-            value={confirmPW}
-            placeholder="Confirm Password"
+            onChangeText={setEmail}
+            value={email}
+            placeholder="Email"
           />
+        </View>
+
+        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+          <View style={{ top: 8, marginRight: 3 }}>
+            <Entypo name="key" size={24} color="black" />
+          </View>
+          <TextInput
+            style={styles.textInput}
+            onChangeText={setPassword}
+            value={password}
+            placeholder="Password"
+          />
+        </View>
+        {pageSetting === "Login" ? null : (
+          <View style={{ flexDirection: "row", justifyContent: "center" }}>
+            <View style={{ top: 8, marginRight: 3 }}>
+              <Entypo name="lock" size={24} color="black" />
+            </View>
+            <TextInput
+              style={styles.textInput}
+              onChangeText={setConfirmPW}
+              value={confirmPW}
+              placeholder="Confirm Password"
+            />
+          </View>
         )}
       </View>
 
