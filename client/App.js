@@ -24,10 +24,10 @@ export default function App() {
     if (Platform.OS == "android") {
       UrlString = "10.0.2.2";
     }
-
     // look inside AsyncStorage for an item (token)
     AsyncStorage.getItem("token")
       .then((tokenRes) => {
+        if (tokenRes === null) throw new Error("No token");
         setToken(tokenRes);
         // make a request to get userdata with unique token
         return axios.get(`http://${UrlString}:5050/user`, {
@@ -37,12 +37,14 @@ export default function App() {
       })
       .then((userResponse) => {
         // set userData state with response from successful request
-
+        //console.log("here");
         setUserData(userResponse.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err.message);
+      }); // console.log(err));
   }, []);
-  console.log(token);
+
   // useEFfect to make a request to get all blogs, we would need to send the token
   return (
     <NavigationContainer>
@@ -55,16 +57,6 @@ export default function App() {
               setToken={setToken}
               {...props}
             ></Login>
-          )}
-        </Stack.Screen>
-        <Stack.Screen name="Register" options={{ headerShown: false }}>
-          {(props) => (
-            <Register
-              userData={userData}
-              setUserData={setUserData}
-              setToken={setToken}
-              {...props}
-            ></Register>
           )}
         </Stack.Screen>
         <Stack.Screen name="Admin" options={{ headerShown: false }}>
@@ -83,8 +75,8 @@ export default function App() {
             <Public
               setUserData={setUserData}
               userData={userData}
-              token={token}
-              setToken={setToken}
+              //token={token}
+              //setToken={setToken}
               {...props}
             ></Public>
           )}
