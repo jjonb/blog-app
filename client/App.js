@@ -5,7 +5,6 @@ import Login from "./Screens/Login/Login";
 import Admin from "./Screens/Admin/Admin";
 import Public from "./Screens/Public/Public";
 
-import Register from "./Screens/Register/Register";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
