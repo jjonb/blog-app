@@ -1,4 +1,11 @@
-import { View, Text, TouchableOpacity, Platform, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Platform,
+  FlatList,
+  Image,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
@@ -30,25 +37,45 @@ const Public = (props) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.pageTitle}>Public (all blogs)</Text>
+      <View style={{ borderBottomWidth: 4 }}>
+        <Text style={styles.pageTitle}>Welcome, let's start reading</Text>
+      </View>
       <FlatList
         data={data}
         renderItem={({ item }) => {
           return (
             <View>
+              <View
+                style={{
+                  marginTop: 15,
+                  paddingBottom: 25,
+                  borderBottomWidth: 4,
+                }}
+              >
+                <Image
+                  style={{ width: 398, height: 250 }}
+                  source={require("../../assets/blogImage.png")}
+                />
+              </View>
               <Text style={styles.subjectText}>{item.subject}</Text>
-              <Text style={styles.blogText}>{item.text}</Text>
-              <Text style={styles.authorText}>Username: {item.author}</Text>
+              <View style={{ flexDirection: "row", alignContent: "center" }}>
+                {/* <Text style={styles.blogText}>{item.text}</Text> */}
+                <Image
+                  style={{ width: 30, height: 30 }}
+                  source={require("../../assets/profile.png")}
+                />
+                <Text style={styles.authorText}>{item.author}</Text>
+              </View>
             </View>
           );
         }}
         keyExtractor={(item) => item._id}
       />
-      <View style={styles.btnContainer}>
+      {/* <View style={styles.btnContainer}>
         <TouchableOpacity onPress={() => props.navigation.navigate("Login")}>
           <Text style={styles.button}>Login</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
     </View>
   );
 };

@@ -7,14 +7,21 @@ const styles = StyleSheet.create({
   },
   pageTitle: {
     fontSize: 24,
+    textAlign: "center",
     marginBottom: 10,
   },
   subjectText: {
-    fontWeight: "bold",
+    fontSize: 24,
+    textAlign: "center",
+    marginTop: 18,
+    marginBottom: 19,
   },
   blogText: {},
   authorText: {
     marginBottom: 15,
+    paddingLeft: 15,
+    paddingTop: 5,
+    fontSize: 16,
   },
   btnContainer: {
     flexDirection: "row",
