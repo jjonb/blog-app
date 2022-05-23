@@ -5,6 +5,10 @@ const blogSchema = new mongoose.Schema({
   text: String,
   author: String,
   authorId: String,
+  img: {
+    data: Buffer,
+    contentType: String,
+  },
 });
 
 module.exports = Blog = mongoose.model("Blog", blogSchema);
