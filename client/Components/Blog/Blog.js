@@ -1,10 +1,21 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import styles from "./styles";
+import { launchImageLibrary } from "react-native-image-picker";
 
 const Blog = (props) => {
   const [toggleEdit, setToggleEdit] = useState(false);
   const [blogText, setBlogText] = useState(props.text);
+  const [photo, setPhoto] = useState(null);
+
+  const choosePhoto = () => {
+    launchImageLibrary({ noData: true }, (response) => {
+      console.log(response);
+      if (response) {
+        setPhoto(response);
+      }
+    });
+  };
 
   return (
     <View style={styles.container}>

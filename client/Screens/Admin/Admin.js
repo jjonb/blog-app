@@ -12,6 +12,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import Blog from "../../Components/Blog/Blog.js";
 import styles from "./styles.js";
+import UploadImage from "../../Components/UploadImage/UploadImage.js";
 
 const Admin = (props) => {
   const [subject, setSubject] = useState("");
@@ -126,6 +127,7 @@ const Admin = (props) => {
           />
         </View>
       )}
+      <UploadImage />
       <TextInput
         style={styles.subjectInput}
         placeholder="Subject"
