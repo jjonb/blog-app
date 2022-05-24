@@ -81,6 +81,8 @@ const Admin = (props) => {
   //   console.log("editing");
   // };
 
+  console.log(props.image);
+
   const editBlog = async (id, newText, authorId) => {
     if (props.userData.id !== authorId) {
       return;
@@ -119,6 +121,7 @@ const Admin = (props) => {
                 text={item.text}
                 author={item.author}
                 authorId={item.authorId}
+                img={item.img}
                 deleteBlog={deleteBlog}
                 editBlog={editBlog}
               />

@@ -1,14 +1,59 @@
 import { View, Text, TextInput, Image, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import ProfileStyles from "./ProfileStyles";
-const Profile = () => {
+import axios from "axios";
+import * as ImagePicker from "expo-image-picker";
+
+const Profile = (props) => {
+  const [profileImage, setProfileImage] = useState("../../assets/profile.png");
+  const [progress, setProgress] = useState(0);
+  let UrlString = "localhost";
+
+  const addImage = async () => {
+    let _image = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!_image.cancelled) {
+      setProfileImage(_image.uri);
+    }
+  };
+  console.log(profileImage);
+  const uploadProfileImage = async () => {
+    const formData = new FormData();
+    formData.append("profile", {
+      name: new Date() + "_profile",
+      uri: profileImage,
+      type: "image/jpg",
+    });
+
+    await axios.post(`http://${UrlString}:5050/user/uploads`, formData, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
+        authorization: props.token,
+      },
+      onUploadProgress: ({ loaded, total }) => setProgress(loaded / total),
+    });
+  };
+
   return (
-    <View>
+    <View style={ProfileStyles.container}>
       <View>
-        <Image
-          style={ProfileStyles.imgContainer}
-          source={require("../../assets/profile.png")}
-        />
+        <TouchableOpacity onPress={addImage}>
+          <Image
+            style={ProfileStyles.imgContainer}
+            source={{ uri: profileImage }}
+          />
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={uploadProfileImage}>
+          <Text> Upload Profile Image</Text>
+        </TouchableOpacity>
+        {progress ? <Text>{progress}</Text> : null}
       </View>
       <View style={ProfileStyles.textInputContainer}>
         <TextInput

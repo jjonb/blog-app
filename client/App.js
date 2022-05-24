@@ -79,7 +79,7 @@ export default function App() {
     <NavigationContainer>
       <Drawer.Navigator
         useLegacyImplementation
-        initialRouteName="Public"
+        initialRouteName="Profile"
         //style={{ backgroundColor: "red" }}
         drawerContent={(props) => <CustomDrawerContent {...props} />}
       >

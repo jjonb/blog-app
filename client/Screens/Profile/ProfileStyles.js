@@ -1,11 +1,17 @@
 import { StyleSheet } from "react-native";
 const ProfileStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   imgContainer: {
     height: 125,
-    width: 100 + "%",
-    resizeMode: "contain",
+    width: 125,
+    // resizeMode: "contain",
     top: 134,
     marginBottom: 125,
+    borderRadius: 100,
+    borderWidth: 1,
+    alignSelf: "center",
   },
   textInputContainer: {
     flex: 1,

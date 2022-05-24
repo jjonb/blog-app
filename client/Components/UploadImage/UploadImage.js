@@ -13,12 +13,13 @@ const UploadImage = () => {
       quality: 1,
     });
 
-    console.log(JSON.stringify(_image));
+    //console.log(JSON.stringify(_image));
 
     if (!_image.cancelled) {
       setImage(_image.uri);
     }
   };
+  console.log("this is img====>", image);
 
   return (
     <View>
@@ -28,7 +29,7 @@ const UploadImage = () => {
 
       <View>
         <TouchableOpacity onPress={addImage}>
-          <Text>{image ? "Edit" : "Upload"} Image</Text>
+          <Text>{image ? "Edit" : "Choose"} Image</Text>
         </TouchableOpacity>
       </View>
     </View>

@@ -19,6 +19,7 @@ const Public = (props) => {
   useEffect(() => {
     if (props.userData.id) props.navigation.navigate("Admin");
   }, [props.userData]);
+  console.log(props.userData);
 
   // "10.0.2.2" is needed if this request is coming from physical device
   if (Platform.OS == "android") {
