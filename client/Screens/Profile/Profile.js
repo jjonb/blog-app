@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import ProfileStyles from "./ProfileStyles";
 import axios from "axios";
 import * as ImagePicker from "expo-image-picker";
+import { launchImageLibrary } from "react-native-image-picker";
 
 const Profile = (props) => {
   const [profileImage, setProfileImage] = useState("../../assets/profile.png");

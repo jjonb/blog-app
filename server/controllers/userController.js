@@ -82,20 +82,8 @@ module.exports = {
     }
   },
   uploadProfilePic: async (req, res) => {
-    const { user } = req;
-    try {
-      console.log(req.body.file);
-      console.log(req.body);
-      const updatePic = await User.findByIdAndUpdate(user._id, {
-        profilePic: user.body.image,
-      });
-      const img = req.body.image;
-      if (!img) {
-        console.log("no image");
-      }
-      res.send({ congrats: "data received" });
-    } catch (err) {
-      res.json({ msg: err });
-    }
+    if (req.file === undefined) return res.send("You must select a picture.");
+    const imgUrl = `http://localhost:5050/user/${req.file.filename}`;
+    return res.send(imgUrl);
   },
 };
