@@ -1,14 +1,40 @@
-import { View, Text, TextInput, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Image,
+  TouchableOpacity,
+  Platform,
+} from "react-native";
 import React, { useState } from "react";
 import ProfileStyles from "./ProfileStyles";
 import axios from "axios";
 import * as ImagePicker from "expo-image-picker";
-import { launchImageLibrary } from "react-native-image-picker";
+// import { launchImageLibrary } from "react-native-image-picker";
 
+const createFormData = (photo, body = {}) => {
+  const data = new FormData();
+
+  data.append("photo", {
+    name: photo.fileName,
+    type: photo.type,
+    uri: Platform.OS === "ios" ? photo.uri.replace("file://", "") : photo.uri,
+  });
+
+  Object.keys(body).forEach((key) => {
+    data.append(key, body[key]);
+  });
+  return data;
+};
 const Profile = (props) => {
-  const [profileImage, setProfileImage] = useState("../../assets/profile.png");
-  const [progress, setProgress] = useState(0);
+  const [profileImage, setProfileImage] = useState();
+  const [images, setImages] = useState([]);
+
   let UrlString = "localhost";
+
+  const getImages = async () => {
+    return await axios.get();
+  };
 
   const addImage = async () => {
     let _image = await ImagePicker.launchImageLibraryAsync({
@@ -22,25 +48,35 @@ const Profile = (props) => {
       setProfileImage(_image.uri);
     }
   };
-  console.log(profileImage);
-  const uploadProfileImage = async () => {
-    const formData = new FormData();
-    formData.append("profile", {
-      name: new Date() + "_profile",
-      uri: profileImage,
-      type: "image/jpg",
-    });
 
-    await axios.post(`http://${UrlString}:5050/user/uploads`, formData, {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "multipart/form-data",
-        authorization: props.token,
-      },
-      onUploadProgress: ({ loaded, total }) => setProgress(loaded / total),
-    });
+  const uploadProfileImage = () => {
+    // const formData = new FormData();
+    // formData.append("photo", {
+    //   name: photo.fileName,
+    //   uri: profileImage,
+    //   type: photo.type,
+    // });
+
+    // await axios.post(`http://${UrlString}:5050/user/upload`, formData, {
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "multipart/form-data",
+    //   },
+    // });
+
+    fetch(`http://${UrlString}:5050/user/upload`, {
+      method: "POST",
+      body: createFormData(profileImage),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log("response", response);
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
   };
-
+  console.log(profileImage);
   return (
     <View style={ProfileStyles.container}>
       <View>
@@ -54,7 +90,6 @@ const Profile = (props) => {
         <TouchableOpacity onPress={uploadProfileImage}>
           <Text> Upload Profile Image</Text>
         </TouchableOpacity>
-        {progress ? <Text>{progress}</Text> : null}
       </View>
       <View style={ProfileStyles.textInputContainer}>
         <TextInput

@@ -1,8 +1,6 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const fs = require("fs");
-const path = require("path");
 
 module.exports = {
   getUser: async (req, res) => {
@@ -33,12 +31,7 @@ module.exports = {
         userName: req.body.userName,
         email: req.body.email,
         password: hashedPW,
-        // profilePic: {
-        //   data: fs.readFileSync(
-        //     path.join(__dirname + "/uploads" + req.file.filename)
-        //   ),
-        //   contentType: "image/jpg",
-        // },
+        profilePic: req.body.img,
       }).save();
 
       // send new user information back to be processed as json data
@@ -80,10 +73,5 @@ module.exports = {
     } catch (err) {
       return res.json({ msg: err });
     }
-  },
-  uploadProfilePic: async (req, res) => {
-    if (req.file === undefined) return res.send("You must select a picture.");
-    const imgUrl = `http://localhost:5050/user/${req.file.filename}`;
-    return res.send(imgUrl);
   },
 };
