@@ -12,7 +12,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import Blog from "../../Components/Blog/Blog.js";
 import styles from "./styles.js";
-import UploadImage from "../../Components/UploadImage/UploadImage.js";
 
 const Admin = (props) => {
   const [subject, setSubject] = useState("");
@@ -81,8 +80,6 @@ const Admin = (props) => {
   //   console.log("editing");
   // };
 
-  console.log(props.image);
-
   const editBlog = async (id, newText, authorId) => {
     if (props.userData.id !== authorId) {
       return;
@@ -121,7 +118,6 @@ const Admin = (props) => {
                 text={item.text}
                 author={item.author}
                 authorId={item.authorId}
-                img={item.img}
                 deleteBlog={deleteBlog}
                 editBlog={editBlog}
               />
@@ -130,7 +126,6 @@ const Admin = (props) => {
           />
         </View>
       )}
-      <UploadImage />
       <TextInput
         style={styles.subjectInput}
         placeholder="Subject"

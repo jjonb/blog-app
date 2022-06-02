@@ -23,6 +23,7 @@ const Login = (props) => {
   const [password, setPassword] = useState("");
   const [confirmPW, setConfirmPW] = useState("");
   const [userName, setUserName] = useState("");
+  const [profileImage, setProfileImage] = useState("");
 
   const [pageSetting, setPageSetting] = useState("Login");
 
@@ -39,6 +40,7 @@ const Login = (props) => {
         email: email,
         userName: userName,
         password: password,
+        profilePic: profileImage,
       })
       .then(function (response) {
         // redirect user to Login screen

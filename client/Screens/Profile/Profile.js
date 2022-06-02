@@ -5,90 +5,70 @@ import {
   Image,
   TouchableOpacity,
   Platform,
+  Button,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ProfileStyles from "./ProfileStyles";
-import axios from "axios";
 import * as ImagePicker from "expo-image-picker";
-// import { launchImageLibrary } from "react-native-image-picker";
+import axios from "axios";
 
-const createFormData = (photo, body = {}) => {
+const SERVER_URL = "http://localhost:5050";
+
+const createFormData = (image, body = {}) => {
   const data = new FormData();
 
-  data.append("photo", {
-    name: photo.fileName,
-    type: photo.type,
-    uri: Platform.OS === "ios" ? photo.uri.replace("file://", "") : photo.uri,
+  data.append("image", {
+    name: image.fileName,
+    type: image.type,
+    uri: Platform.OS === "ios" ? image.uri.replace("file://", "") : image.uri,
   });
 
   Object.keys(body).forEach((key) => {
     data.append(key, body[key]);
   });
+
   return data;
 };
-const Profile = (props) => {
-  const [profileImage, setProfileImage] = useState();
-  const [images, setImages] = useState([]);
 
-  let UrlString = "localhost";
+const Profile = () => {
+  const [image, setImage] = useState(null);
 
-  const getImages = async () => {
-    return await axios.get();
-  };
-
-  const addImage = async () => {
-    let _image = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+  const choosePhoto = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
     });
 
-    if (!_image.cancelled) {
-      setProfileImage(_image.uri);
+    if (!result.cancelled) {
+      setImage(result.uri);
     }
   };
 
-  const uploadProfileImage = () => {
-    // const formData = new FormData();
-    // formData.append("photo", {
-    //   name: photo.fileName,
-    //   uri: profileImage,
-    //   type: photo.type,
-    // });
+  useEffect(() => {
+    console.log("image is =>", image);
+  }, [image]);
 
-    // await axios.post(`http://${UrlString}:5050/user/upload`, formData, {
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "multipart/form-data",
-    //   },
-    // });
-
-    fetch(`http://${UrlString}:5050/user/upload`, {
-      method: "POST",
-      body: createFormData(profileImage),
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        console.log("response", response);
-      })
-      .catch((err) => {
-        console.log("error", err);
-      });
+  const uploadPhoto = async () => {
+    const formData = createFormData(image);
+    console.log("Form data that was created =>", formData);
+    await axios.post(`${SERVER_URL}/user/uploadImage`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    console.log("uploaded");
   };
-  console.log(profileImage);
-  return (
-    <View style={ProfileStyles.container}>
-      <View>
-        <TouchableOpacity onPress={addImage}>
-          <Image
-            style={ProfileStyles.imgContainer}
-            source={{ uri: profileImage }}
-          />
-        </TouchableOpacity>
 
-        <TouchableOpacity onPress={uploadProfileImage}>
-          <Text> Upload Profile Image</Text>
+  return (
+    <View>
+      <View>
+        <TouchableOpacity onPress={choosePhoto}>
+          <Image style={ProfileStyles.imgContainer} source={{ uri: image }} />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text onPress={uploadPhoto}>Upload</Text>
         </TouchableOpacity>
       </View>
       <View style={ProfileStyles.textInputContainer}>

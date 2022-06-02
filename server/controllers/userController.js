@@ -31,7 +31,6 @@ module.exports = {
         userName: req.body.userName,
         email: req.body.email,
         password: hashedPW,
-        profilePic: req.body.img,
       }).save();
 
       // send new user information back to be processed as json data
