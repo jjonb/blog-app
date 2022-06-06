@@ -54,7 +54,7 @@ export default function App() {
         console.log(err.message);
       }); // console.log(err));
   }, []);
-
+  //console.log(token);
   function CustomDrawerContent(props) {
     return (
       <DrawerContentScrollView {...props}>
@@ -98,10 +98,18 @@ export default function App() {
               shadowOpacity: 0,
               borderBottomWidth: 0,
             },
+            headerTitleStyle: {
+              fontSize: 30,
+              fontWeight: "normal",
+            },
             headerRight: () => (
               <Image
-                style={{ height: 25, width: 25 }}
-                source={require("./assets/profile.png")}
+                style={{ height: 25, width: 25, marginRight: 10 }}
+                source={
+                  userData.id
+                    ? require("./assets/profile.png")
+                    : require("./assets/profileImage.png")
+                }
               />
             ),
           }}

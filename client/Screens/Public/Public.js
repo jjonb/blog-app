@@ -47,9 +47,15 @@ const Public = (props) => {
   return (
     <View style={styles.container}>
       <View style={{ borderBottomWidth: 4 }}>
-        <Text style={styles.pageTitle}>Welcome, let's start reading</Text>
+        {signedIn ? (
+          <Text style={styles.pageTitle}>
+            Welcome back,{" "}
+            <Text style={{ color: "blue" }}>{props.userData.userName}</Text>
+          </Text>
+        ) : (
+          <Text style={styles.pageTitle}>Welcome, let's start reading</Text>
+        )}
       </View>
-      {signedIn ? <Text>Logged in</Text> : null}
       <FlatList
         inverted={true}
         data={data}
@@ -60,6 +66,8 @@ const Public = (props) => {
                 onPress={() => {
                   props.navigation.navigate("Blog", {
                     blog: item,
+                    userMatch:
+                      props.userData.userName === item.author ? true : false,
                   });
                 }}
               >
@@ -78,10 +86,18 @@ const Public = (props) => {
                 <Text style={styles.subjectText}>{item.subject}</Text>
                 <View style={{ flexDirection: "row", alignContent: "center" }}>
                   {/* <Text style={styles.blogText}>{item.text}</Text> */}
-                  <Image
-                    style={{ width: 30, height: 30 }}
-                    source={require("../../assets/profile.png")}
-                  />
+                  {props.userData.userName === item.author ? (
+                    <Image
+                      style={{ width: 30, height: 30 }}
+                      source={require("../../assets/profile.png")}
+                    />
+                  ) : (
+                    <Image
+                      style={{ width: 30, height: 30 }}
+                      source={require("../../assets/profileImage.png")}
+                    />
+                  )}
+
                   <Text style={styles.authorText}>{item.author}</Text>
                 </View>
               </TouchableOpacity>

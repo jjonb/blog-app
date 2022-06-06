@@ -1,6 +1,17 @@
 const Blog = require("../models/blogModel");
 
 module.exports = {
+  getBlog: async (req, res) => {
+    try {
+      // get all user blogs by the user.id
+      // from the auth middleware
+      const blogPost = await Blog.findOne({ _id: req.body._id });
+      // send all user blog entries as json
+      res.json(blogPost);
+    } catch (err) {
+      res.json({ msg: err });
+    }
+  },
   getUsersPosts: async (req, res) => {
     try {
       // get all user blogs by the user.id
@@ -47,6 +58,17 @@ module.exports = {
       const updateBlog = await Blog.findOneAndUpdate(
         { _id: req.body._id },
         { text: req.body.text }
+      );
+      res.json(updateBlog);
+    } catch (err) {
+      res.json({ msg: err });
+    }
+  },
+  updateSubject: async (req, res) => {
+    try {
+      const updateBlog = await Blog.findOneAndUpdate(
+        { _id: req.body._id },
+        { subject: req.body.subject }
       );
       res.json(updateBlog);
     } catch (err) {

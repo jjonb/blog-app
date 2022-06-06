@@ -16,7 +16,12 @@ const styles = StyleSheet.create({
     marginTop: 18,
     marginBottom: 19,
   },
-  blogText: {},
+  blogText: {
+    fontSize: 17,
+    textAlign: "center",
+    marginTop: 18,
+    marginBottom: 19,
+  },
   authorText: {
     marginBottom: 15,
     paddingLeft: 15,

@@ -5,6 +5,9 @@ import {
   TouchableOpacity,
   Platform,
   Image,
+  Dimensions,
+  ScrollView,
+  KeyboardAvoidingView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -14,10 +17,8 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 
-//<FontAwesome5 name="user-edit" size={24} color="black" />
-//<MaterialCommunityIcons name="email" size={24} color="black" />
-//<Entypo name="key" size={24} color="black" />
-//<Entypo name="lock" size={24} color="black" />
+const windowHeight = Dimensions.get("window").height;
+
 const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -70,9 +71,9 @@ const Login = (props) => {
       });
   };
 
-  const login = () => {
+  const login = async () => {
     // make a request to endpoint with email and password
-    axios
+    await axios
       .post(`http://${UrlString}:5050/user/login`, {
         email: email,
         password: password,
@@ -102,27 +103,34 @@ const Login = (props) => {
   };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container} behavior="position">
       <Image
         style={{
           height: 183,
-          width: 100 + "%",
-          resizeMode: "contain",
+          width: 200,
           top: 78,
-          marginBottom: 125,
+          marginBottom: 100,
+          alignSelf: "center",
         }}
         source={require("../../assets/logo.png")}
       />
-      <Text style={{ marginBottom: 5, fontWeight: "bold", fontSize: 36 }}>
+      <Text
+        style={{
+          marginBottom: 5,
+          fontWeight: "bold",
+          fontSize: 36,
+          alignSelf: "center",
+        }}
+      >
         {" "}
         Welcome,{" "}
       </Text>
       {pageSetting === "Login" ? (
-        <Text style={{ fontWeight: "bold", fontSize: 14 }}>
+        <Text style={{ fontWeight: "bold", fontSize: 14, alignSelf: "center" }}>
           Login to continue
         </Text>
       ) : (
-        <Text style={{ fontWeight: "bold", fontSize: 14 }}>
+        <Text style={{ fontWeight: "bold", fontSize: 14, alignSelf: "center" }}>
           Sign up to continue
         </Text>
       )}
@@ -160,6 +168,7 @@ const Login = (props) => {
             style={styles.textInput}
             onChangeText={setPassword}
             value={password}
+            secureTextEntry={true}
             placeholder="Password"
           />
         </View>
@@ -169,6 +178,7 @@ const Login = (props) => {
               <Entypo name="lock" size={24} color="black" />
             </View>
             <TextInput
+              secureTextEntry={true}
               style={styles.textInput}
               onChangeText={setConfirmPW}
               value={confirmPW}
@@ -209,19 +219,27 @@ const Login = (props) => {
       >
         {pageSetting === "Login" ? (
           <Text
-            style={{ fontWeight: "bold", fontSize: 16, textAlign: "center" }}
+            style={{
+              fontWeight: "bold",
+              fontSize: 16,
+              textAlign: "center",
+            }}
           >
             Don't have an account?{"\n"}Sign up
           </Text>
         ) : (
           <Text
-            style={{ fontWeight: "bold", fontSize: 16, textAlign: "center" }}
+            style={{
+              fontWeight: "bold",
+              fontSize: 16,
+              textAlign: "center",
+            }}
           >
             Already have an account?{"\n"}Login
           </Text>
         )}
       </TouchableOpacity>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

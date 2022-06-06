@@ -21,6 +21,7 @@ module.exports = (req, res, next) => {
         userName: userResponse.userName,
         email: userResponse.email,
         id: verified.id,
+        //img: userResponse.img,
       };
       // moves from this middleware function (auth)
       // to controller in route

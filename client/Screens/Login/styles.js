@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: "center",
+    alignSelf: "center",
     width: 200,
     height: 50,
     textAlign: "center",

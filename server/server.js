@@ -9,10 +9,16 @@ require("dotenv").config();
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+//app.use(bodyParser.urlencoded({ extended: true }));
+app.set("view engine", "ejs");
 
 // Use the mongoose driver and library to communicate server side code with MongoDB
 mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost/blog-app-db",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
   (err) => {
     if (err) throw new Error({ msg: err });
     console.log("connected to mongodb");
