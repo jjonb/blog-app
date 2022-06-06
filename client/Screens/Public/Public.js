@@ -51,6 +51,7 @@ const Public = (props) => {
       </View>
       {signedIn ? <Text>Logged in</Text> : null}
       <FlatList
+        inverted={true}
         data={data}
         renderItem={({ item }) => {
           return (
@@ -90,22 +91,21 @@ const Public = (props) => {
         keyExtractor={(item) => item._id}
       />
       {signedIn ? (
-        <TouchableOpacity
-          onPress={() => {
-            props.navigation.navigate("New Blog");
-          }}
-        >
-          <Image
-            style={{
-              width: 50,
-              height: 50,
-              position: "absolute",
-              right: 5,
-              bottom: 10,
+        <View style={{ position: "absolute", right: 5, bottom: 10, zIndex: 3 }}>
+          <TouchableOpacity
+            onPress={() => {
+              props.navigation.navigate("New Blog");
             }}
-            source={require("../../assets/newblog.png")}
-          />
-        </TouchableOpacity>
+          >
+            <Image
+              style={{
+                width: 50,
+                height: 50,
+              }}
+              source={require("../../assets/newblog.png")}
+            />
+          </TouchableOpacity>
+        </View>
       ) : null}
     </View>
   );

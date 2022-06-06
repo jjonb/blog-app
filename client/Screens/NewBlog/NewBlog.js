@@ -50,9 +50,14 @@ const NewBlog = (props) => {
         onChangeText={setText}
         value={text}
       />
-      <TouchableOpacity onPress={createPost}>
-        <Text style={styles.button}>Post</Text>
-      </TouchableOpacity>
+      <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+        <TouchableOpacity onPress={createPost}>
+          <Text style={styles.button}>Post</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => props.navigation.goBack()}>
+          <Text style={styles.button}>Back</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

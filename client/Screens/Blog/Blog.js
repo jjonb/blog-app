@@ -1,4 +1,4 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
@@ -8,7 +8,7 @@ const Blog = (props) => {
   const blog = props.route.params.blog;
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <View
         style={{
           marginTop: 15,
@@ -31,6 +31,11 @@ const Blog = (props) => {
           source={require("../../assets/profile.png")}
         />
         <Text style={styles.authorText}>{blog.author}</Text>
+      </View>
+      <View>
+        <TouchableOpacity onPress={() => props.navigation.goBack()}>
+          <Text>Return</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
