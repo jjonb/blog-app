@@ -1,9 +1,11 @@
 import { View, Text, TextInput, Image, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ProfileStyles from "./ProfileStyles";
-const Profile = () => {
+const Profile = (props) => {
+  const [userName, setUserName] = useState(props.userData.userName);
+  const [email, setEmail] = useState(props.userData.email);
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <View>
         <Image
           style={ProfileStyles.imgContainer}
@@ -13,14 +15,14 @@ const Profile = () => {
       <View style={ProfileStyles.textInputContainer}>
         <TextInput
           style={ProfileStyles.textInput}
-          // onChangeText={setUserName}
-          // value={userName}
+          onChangeText={setUserName}
+          value={userName}
           placeholder="Name"
         />
         <TextInput
           style={ProfileStyles.textInput}
-          // onChangeText={setEmail}
-          // value={email}
+          onChangeText={setEmail}
+          value={email}
           placeholder="Email"
         />
         <TextInput
@@ -40,7 +42,7 @@ const Profile = () => {
           </Text>
         </TouchableOpacity>
       </View>
-      <View>
+      <View style={{ bottom: 10 }}>
         <TouchableOpacity>
           <Text
             style={{

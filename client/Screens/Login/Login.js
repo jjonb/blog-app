@@ -59,7 +59,7 @@ const Login = (props) => {
             return AsyncStorage.setItem("token", response.data.token);
           })
           .then(() => {
-            props.navigation.navigate("Admin");
+            props.navigation.navigate("Public");
           })
           .catch((error) => {
             console.log(error);
@@ -86,7 +86,7 @@ const Login = (props) => {
         return AsyncStorage.setItem("token", response.data.token);
       })
       .then(() => {
-        props.navigation.navigate("Admin");
+        props.navigation.navigate("Public");
       })
       .catch((error) => {
         console.log(error);

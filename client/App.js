@@ -7,6 +7,8 @@ import Login from "./Screens/Login/Login";
 import Admin from "./Screens/Admin/Admin";
 import Public from "./Screens/Public/Public";
 import Profile from "./Screens/Profile/Profile";
+import Blog from "./Screens/Blog/Blog";
+import NewBlog from "./Screens/NewBlog/NewBlog";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
@@ -57,10 +59,19 @@ export default function App() {
     return (
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
-        <DrawerItem
-          label="Close drawer"
-          onPress={() => props.navigation.closeDrawer()}
-        />
+        {userData.id ? (
+          <DrawerItem
+            label="Sign Out"
+            onPress={async () => {
+              await AsyncStorage.setItem("token", "");
+              setToken("");
+              setUserData({});
+
+              props.navigation.closeDrawer();
+              props.navigation.navigate("Public");
+            }}
+          />
+        ) : null}
       </DrawerContentScrollView>
     );
   }
@@ -98,23 +109,19 @@ export default function App() {
           {(props) => (
             <Public
               userData={userData}
+              token={token}
               setUserData={setUserData}
               setToken={setToken}
               {...props}
             ></Public>
           )}
         </Drawer.Screen>
-        <Drawer.Screen name="Login" options={{ headerShown: false }}>
-          {(props) => (
-            <Login
-              userData={userData}
-              setUserData={setUserData}
-              setToken={setToken}
-              {...props}
-            ></Login>
-          )}
-        </Drawer.Screen>
-        <Drawer.Screen name="Profile">
+        <Drawer.Screen
+          name="Profile"
+          options={{
+            drawerItemStyle: userData.id ? {} : { display: "none" },
+          }}
+        >
           {(props) => (
             <Profile
               userData={userData}
@@ -124,7 +131,29 @@ export default function App() {
             ></Profile>
           )}
         </Drawer.Screen>
-        <Drawer.Screen name="Admin">
+        <Drawer.Screen
+          name="Login"
+          options={{
+            headerShown: false,
+            drawerItemStyle: userData.id ? { display: "none" } : {},
+          }}
+        >
+          {(props) => (
+            <Login
+              userData={userData}
+              setUserData={setUserData}
+              setToken={setToken}
+              {...props}
+            ></Login>
+          )}
+        </Drawer.Screen>
+
+        <Drawer.Screen
+          name="Admin"
+          options={{
+            drawerItemStyle: { display: "none" },
+          }}
+        >
           {(props) => (
             <Admin
               setUserData={setUserData}
@@ -135,7 +164,40 @@ export default function App() {
             ></Admin>
           )}
         </Drawer.Screen>
+        <Drawer.Screen
+          name="Blog"
+          options={{
+            drawerItemStyle: { display: "none" },
+          }}
+        >
+          {(props) => (
+            <Blog
+              setUserData={setUserData}
+              userData={userData}
+              token={token}
+              setToken={setToken}
+              {...props}
+            ></Blog>
+          )}
+        </Drawer.Screen>
+        <Drawer.Screen
+          name="New Blog"
+          options={{
+            drawerItemStyle: { display: "none" },
+          }}
+        >
+          {(props) => (
+            <NewBlog
+              setUserData={setUserData}
+              userData={userData}
+              token={token}
+              setToken={setToken}
+              {...props}
+            ></NewBlog>
+          )}
+        </Drawer.Screen>
       </Drawer.Navigator>
+
       {/* <Stack.Navigator initialRouteName="MyDrawer">
         <Stack.Screen name="MyDrawer" options={{ headerShown: false }}>
           {(props) => (
