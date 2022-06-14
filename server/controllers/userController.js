@@ -6,6 +6,17 @@ module.exports = {
   getUser: async (req, res) => {
     res.json(req.user);
   },
+  updateUser: async (req, res) => {
+    try {
+      const updateUser = await User.findOneAndUpdate(
+        { email: req.user.email },
+        { userName: req.body.newUserName }
+      );
+      res.json(updateUser);
+    } catch (err) {
+      res.json({ msg: err });
+    }
+  },
 
   registerUser: async (req, res) => {
     // check to see an object was recieved with specific keys:

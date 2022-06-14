@@ -2,6 +2,7 @@ const {
   getUser,
   registerUser,
   login,
+  updateUser,
 } = require("../controllers/userController");
 
 const path = require("path");
@@ -47,6 +48,7 @@ router.post("/register", registerUser);
 // route: /user/login
 // accepts : req.body => email, password
 router.post("/login", login);
+router.put("/updateUser", auth, updateUser);
 
 // For Single image upload
 router.put("/uploadImage", auth, upload.single("file"), async (req, res) => {

@@ -77,7 +77,6 @@ export default function App() {
   }
 
   const Drawer = createDrawerNavigator();
-
   // useEFfect to make a request to get all blogs, we would need to send the token
   return (
     <NavigationContainer>
@@ -134,6 +133,7 @@ export default function App() {
             <Profile
               userData={userData}
               setUserData={setUserData}
+              token={token}
               setToken={setToken}
               {...props}
             ></Profile>

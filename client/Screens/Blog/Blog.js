@@ -14,38 +14,39 @@ import { NavigationContainer, useIsFocused } from "@react-navigation/native";
 
 const Blog = (props) => {
   // const isFocused = useIsFocused();
-
   let UrlString = "localhost";
 
   // "10.0.2.2" is needed if this request is coming from physical device
   if (Platform.OS == "android") {
     UrlString = "10.0.2.2";
   }
+
   // useEffect(async () => {}, [isFocused]);
   const blog = props.route.params.blog;
   const userMatch = props.route.params.userMatch;
-  const [subject, setSubject] = useState("");
-  const [text, setText] = useState("");
-  const getBlog = async (id) => {
-    return await axios
-      .get(`http://${UrlString}:5050/blog/get`, {
-        params: {
-          _id: id,
-        },
-        headers: { "x-auth-token": props.token },
-      })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  console.log(blog.subject);
+  const [subject, setSubject] = useState(blog.subject);
+  const [text, setText] = useState(blog.text);
+  // const getBlog = async (id) => {
+  //   return await axios
+  //     .get(`http://${UrlString}:5050/blog/get`, {
+  //       params: {
+  //         _id: id,
+  //       },
+  //       headers: { "x-auth-token": props.token },
+  //     })
+  //     .then((response) => {
+  //       console.log(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
-  useEffect(() => {
-    getBlog(blog._id);
-    //console.log("a");
-  }, []);
+  // useEffect(() => {
+  //   getBlog(blog._id);
+  //   //console.log("a");
+  // }, []);
   //console.log(subject);
   //console.log(blog.subject);
   // const [subject, setSubject] = useState(blog.subject);
@@ -144,7 +145,6 @@ const Blog = (props) => {
       <View
         style={{ flexDirection: "row", alignContent: "center", marginLeft: 10 }}
       >
-        {/* <Text style={styles.blogText}>{blog.text}</Text> */}
         {userMatch ? (
           <Image
             style={{ width: 30, height: 30 }}
@@ -159,15 +159,17 @@ const Blog = (props) => {
 
         <Text style={styles.authorText}>{blog.author}</Text>
       </View>
-      <TouchableOpacity
-        onPress={() => {
-          deleteBlog(blog._id, blog.authorId);
-          props.navigation.goBack();
-        }}
-        style={{ alignSelf: "center" }}
-      >
-        <Text style={{ color: "red" }}>Delete Blog</Text>
-      </TouchableOpacity>
+      {userMatch ? (
+        <TouchableOpacity
+          onPress={() => {
+            deleteBlog(blog._id, blog.authorId);
+            props.navigation.goBack();
+          }}
+          style={{ alignSelf: "center" }}
+        >
+          <Text style={{ color: "red" }}>Delete Blog</Text>
+        </TouchableOpacity>
+      ) : null}
       {/* <View style={{ position: absolute, }}>
         <TouchableOpacity onPress={() => props.navigation.goBack()}>
           <Text>Return</Text>

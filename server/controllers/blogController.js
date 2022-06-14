@@ -75,6 +75,17 @@ module.exports = {
       res.json({ msg: err });
     }
   },
+  updateAuthors: async (req, res) => {
+    try {
+      const updateAuthors = await Blog.updateMany(
+        { author: req.user.userName },
+        { $set: { author: req.body.newUserName } }
+      );
+      res.json(updateAuthors);
+    } catch (err) {
+      res.json({ msg: err });
+    }
+  },
   getAllBlogs: async (req, res) => {
     try {
       const allBlogs = await Blog.find({});

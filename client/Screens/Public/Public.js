@@ -59,6 +59,10 @@ const Public = (props) => {
       <FlatList
         inverted={true}
         data={data}
+        contentContainerStyle={{
+          flexGrow: 1,
+          justifyContent: "flex-end",
+        }}
         renderItem={({ item }) => {
           return (
             <View>

@@ -5,6 +5,7 @@ const {
   updateBlogPost,
   getAllBlogs,
   updateSubject,
+  updateAuthors,
   getBlog,
 } = require("../controllers/blogController");
 
@@ -16,6 +17,7 @@ const router = require("express").Router();
 // header => x-auth-token
 router.get("/", auth, getUsersPosts);
 router.get("/get", getBlog);
+router.put("/updateAuthors", auth, updateAuthors);
 
 // route: /blog/new
 // header => x-auth-token

@@ -31,6 +31,12 @@ const Profile = (props) => {
 
   //   return data;
   // };
+  let UrlString = "localhost";
+
+  // "10.0.2.2" is needed if this request is coming from physical device
+  if (Platform.OS == "android") {
+    UrlString = "10.0.2.2";
+  }
   const [userName, setUserName] = useState(props.userData.userName);
   const [email, setEmail] = useState(props.userData.email);
 
@@ -65,7 +71,28 @@ const Profile = (props) => {
   };
   //console.log(image);
   const windowHeight = Dimensions.get("window").height;
+  const updateAuthors = async (usr) => {
+    await axios.put(
+      `http://${UrlString}:5050/blog/updateAuthors`,
+      { newUserName: usr },
+      {
+        headers: { "x-auth-token": props.token },
+      }
+    );
+    console.log("update successful");
+  };
 
+  const applyChanges = async (eml, usr) => {
+    await axios.put(
+      `http://${UrlString}:5050/user/updateUser`,
+      { newUserName: usr },
+      {
+        headers: { "x-auth-token": props.token },
+      }
+    );
+    updateAuthors(usr);
+    console.log("update successful");
+  };
   return (
     <View style={{ flex: 1 }}>
       <ScrollView style={{ flex: 1 }}>
@@ -106,7 +133,13 @@ const Profile = (props) => {
               secureTextEntry={true}
               placeholder="Password"
             />
-            <TouchableOpacity style={ProfileStyles.button}>
+            <TouchableOpacity
+              onPress={() => {
+                applyChanges(email, userName);
+                props.navigation.goBack();
+              }}
+              style={ProfileStyles.button}
+            >
               <Text
                 style={{
                   fontSize: 20,
