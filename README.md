@@ -1,4 +1,4 @@
-# Full Stack News Application
+# Full Stack Blog Application
 ## Description
 This is full-stack React Native application for users read and share blog posts. 
 Image uploading is a work in progress. Default blog images and profile images were used.
