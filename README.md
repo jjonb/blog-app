@@ -1,24 +1,16 @@
-# Group Members:
+# Full Stack News Application
+## Description
+This is full-stack React Native application for users read and share blog posts. 
+Image uploading is a work in progress. Default blog images and profile images were used.
 
-- Jesse Bellido
-- Beakal Degefa
-- Linda Westphal
+## Technologies
+- Front-end: Expo React Native, React Native Stack, React Native Drawer
+- Back-end: Node, Express, Mongoose, Bcryptjs, Jsonwebtoken
+## How to Start
+- Install node packages for both the 'client' and 'server' folders.
+- Start server with `npm start`.
+- Start client with `npm start`.
+- Open app via the Metro Bundler on Web or Android Emulator.
 
-## First Steps
-
-- Create a server folder and initialize a new node project `npm init`
-- Set up the restful API
-- Create User model, and Blog model and connect to mongodb from server
-
-## Second Steps
-
-- Style (textboxes, screens) for admin/landing, register, login page.
-- CRUD functionality for our blogs (edit, update, delete blogs).
-- When I get to landing/admin page, be able to see all the blog posts (all crud functionality; edit/delete/create blog).
-
-## Third Steps
-
-- Add Profile/Settings page, Profile.js. Be able to see/change userName, password, and email.
-- Add profile pictures/ change profile pictures.
-- Bottom Tab Navigation.
-- Add "save changes" button on profile page.
+## Demo
+A demonstration of this app can be found [here](https://streamable.com/wmyrk7).
