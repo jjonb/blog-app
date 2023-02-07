@@ -1,6 +1,6 @@
 # BirLog
 ## Description
-This is full-stack React Native application for users read and share blog posts. Users can login or register using the Drawer navigator. Unauthenticated users can view all blogs. Logged in users can view all blogs and edit/create their own blogs. Authentication was token-based and passwords were encrypted using Bcryptjs.
+This is full-stack React Native application for users to read and share blog posts. Users can login or register using the Drawer navigator. Unauthenticated users can view all blogs. Logged in users can view all blogs and edit/create their own blogs. Authentication was token-based and passwords were encrypted using Bcryptjs.
 Image uploading is a work in progress. Default blog images and profile images were used.
 
 ## Technologies
